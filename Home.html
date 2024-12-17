@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Dashboard</title>
+  <link rel="stylesheet" href="stylehome.css">
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Dashboard</h2>
+    <a href="doctor.html">Doctor</a>
+    <a href="index.html">Schedule Appointment</a>
+    <a href="Report.html">Report</a>
+    <a href="Pharmacy.html">Pharmacy</a>
+    <a href="login.html" class="button" onclick="return logout()">Logout</a>
+<script>
+    function logout() {
+        alert("Logout successful");
+        return true;
+        window.location.href = "login.html";
+    }
+</script>
+  </div>
+  <div class="content">
+    <div class="top-cards">
+      <div class="card">
+        <h3>Blood Sugar</h3>
+        <p>8</p>
+        <small>Normal</small>
+      </div>
+      <div class="card">
+        <h3>Heart Rate</h3>
+        <p>9</p>
+        <small>Normal</small>
+      </div>
+      <div class="card">
+        <h3>Blood Pressure</h3>
+        <p>10</p>
+        <small>Normal</small>
+      </div>
+      <div class="card">
+        <h3>Body Mass Index</h3>
+        <p>24.9</p>
+        <small>Normal</small>
+      </div>
+    </div>
+    <div class="appointment">
+      <span>Upcoming Appointment: December 11, 2024 - Consultation with Dr. James</span>
+    </div>
+    <div class="tables">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Dr. Name</th>
+            <th>Mobile</th>
+            <th>Address</th>
+            <th>Consultancy Charge</th>
+            <th>Education</th>
+            <th>DOB</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Dr. Sam</td>
+            <td>0758945631</td>
+            <td>Kolkata</td>
+            <td>2000</td>
+            <td>MBBS</td>
+            <td>1994-03-01</td>
+            <td><span class="status active">Active</span></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Dr. Anna</td>
+            <td>0758945698</td>
+            <td>Mumbai</td>
+            <td>2500</td>
+            <td>MD</td>
+            <td>1990-05-10</td>
+            <td><span class="status inactive">Inactive</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Drug Name</th>
+            <th>Expire Date</th>
+            <th>Manufacture Date</th>
+            <th>Price</th>
+            <th>QTY</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Vitamin D</td>
+            <td>2025-07-12</td>
+            <td>2023-06-01</td>
+            <td>Rs.10</td>
+            <td>20</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Paracetamol</td>
+            <td>2026-01-10</td>
+            <td>2024-12-05</td>
+            <td>Rs.05</td>
+            <td>50</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
