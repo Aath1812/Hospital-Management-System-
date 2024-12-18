@@ -45,77 +45,43 @@
         <small>Normal</small>
       </div>
     </div>
-    <div class="appointment">
-      <span>Upcoming Appointment: December 11, 2024 - Consultation with Dr. James</span>
-    </div>
-    <div class="tables">
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Dr. Name</th>
-            <th>Mobile</th>
-            <th>Address</th>
-            <th>Consultancy Charge</th>
-            <th>Education</th>
-            <th>DOB</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Dr. Sam</td>
-            <td>0758945631</td>
-            <td>Kolkata</td>
-            <td>2000</td>
-            <td>MBBS</td>
-            <td>1994-03-01</td>
-            <td><span class="status active">Active</span></td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Dr. Anna</td>
-            <td>0758945698</td>
-            <td>Mumbai</td>
-            <td>2500</td>
-            <td>MD</td>
-            <td>1990-05-10</td>
-            <td><span class="status inactive">Inactive</span></td>
-          </tr>
-        </tbody>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Drug Name</th>
-            <th>Expire Date</th>
-            <th>Manufacture Date</th>
-            <th>Price</th>
-            <th>QTY</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Vitamin D</td>
-            <td>2025-07-12</td>
-            <td>2023-06-01</td>
-            <td>Rs.10</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Paracetamol</td>
-            <td>2026-01-10</td>
-            <td>2024-12-05</td>
-            <td>Rs.05</td>
-            <td>50</td>
-          </tr>
-        </tbody>
+    <div class="content">
+      <h2>Upcoming Appointments</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Date</th>
+          <th>Doctor Name</th>
+          <th>Contact No:</th>
+          <th>Consultancy Charge</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="appointment-table-body">
+         </tbody>
       </table>
     </div>
-  </div>
+    <script>
+      const tableBody = document.getElementById('appointment-table-body');
+      const appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+  
+      if (appointments.length > 0) {
+        appointments.forEach((appointment, index) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${appointment.date}</td>
+            <td>${appointment.doctorName}</td>
+            <td>${appointment.contact}</td>
+            <td>${appointment.consultancyCharge}</td>
+            <td>${appointment.status}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      } else {
+        tableBody.innerHTML = `<tr><td colspan="5">No upcoming appointments.</td></tr>`;
+      }
+    </script>
 </body>
 </html>
