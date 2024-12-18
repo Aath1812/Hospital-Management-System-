@@ -29,12 +29,58 @@
                 <input type="date" id="task-date" required>
             </div>
             <div class="form-group">
-                <label for="task-description">Description:</label>
-                <input type="text" id="task-description" required>
+                <label for="doctor-name">Doctor Name:</label>
+                <input type="text" id="doctor-name" required>
             </div>
+            <div class="form-group">
+                <label for="contact">Contact No:</label>
+                <input type="number" id="contact" required>
+            </div>
+            <div class="form-group">
+                <label for="consultancy-charge">Consultancy Charge:</label>
+                <input type="tel" id="consultancy-charge" required>
+            </div>
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select id="status" required>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
+            
             <button class="save-button">Save</button>
         </div>
     </div>
     <script type="module" src="calendar.js"></script>
+    <script>
+        const saveButton = document.querySelector('.save-button');
+    
+        saveButton.addEventListener('click', () => {
+            const taskDate = document.getElementById('task-date').value;
+            const doctorName = document.getElementById('doctor-name').value;
+            const contact = document.getElementById('contact').value;
+            const consultancyCharge = document.getElementById('consultancy-charge').value;
+            const status = document.getElementById('status').value;
+            if (taskDate && doctorName && contact && consultancyCharge && status) {
+                const appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+                appointments.push({
+                    date: taskDate,
+                    doctorName: doctorName,
+                    contact: contact,
+                    consultancyCharge: consultancyCharge,
+                    status: status,
+                });
+    
+                localStorage.setItem('appointments', JSON.stringify(appointments));
+    
+                alert('Appointment saved successfully!');
+    
+                window.location.href = 'Home.html';
+            } else {
+                alert('Please fill all the fields.');
+            }
+        });
+    </script>
+    
 </body>
 </html>
