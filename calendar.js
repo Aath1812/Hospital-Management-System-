@@ -1,4 +1,4 @@
-// Utility Functions
+
 function setupCounter(element) {
     let counter = 0;
     const setCounter = (count) => {
@@ -29,7 +29,7 @@ function getFirstDayOfMonth(year, month) {
     return new Date(year, month, 1).getDay();
 }
 
-// TaskManager Class
+
 class TaskManager {
     constructor() {
         this.tasks = JSON.parse(localStorage.getItem('tasks')) || {};
@@ -69,7 +69,7 @@ class TaskManager {
     }
 }
 
-// Calendar Class
+
 class Calendar {
     constructor(date = new Date()) {
         this.currentDate = date;
@@ -152,7 +152,7 @@ class Calendar {
     }
 }
 
-// Global Code
+
 const calendar = new Calendar();
 const taskManager = new TaskManager();
 
