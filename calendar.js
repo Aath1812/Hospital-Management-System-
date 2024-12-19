@@ -45,23 +45,6 @@ class TaskManager {
         return this.tasks[date] || [];
     }
 
-    deleteTask(date, taskId) {
-        if (this.tasks[date]) {
-            this.tasks[date] = this.tasks[date].filter((task) => task.id !== taskId);
-            if (!this.tasks[date].length) delete this.tasks[date];
-            this.save();
-        }
-    }
-
-    updateTask(date, taskId, newDescription) {
-        if (this.tasks[date]) {
-            const task = this.tasks[date].find((task) => task.id === taskId);
-            if (task) {
-                task.description = newDescription;
-                this.save();
-            }
-        }
-    }
 
     save() {
         localStorage.setItem('tasks', JSON.stringify(this.tasks));
@@ -187,63 +170,5 @@ document.querySelector('.save-button').addEventListener('click', () => {
         descriptionInput.value = '';
     }
 });
-
-function updateTaskList(date) {
-    const tasks = taskManager.getTasksForDate(date);
-    const dayElement = document.querySelector(`.calendar-day[data-date="${date}"]`);
-
-    if (dayElement) {
-        const taskList = dayElement.querySelector('.task-list');
-        if (taskList) {
-            taskList.innerHTML = tasks.map((task) => `
-                <div class="task-item" data-task-id="${task.id}">
-                    <span class="task-description">${task.description}</span>
-                    <div class="task-actions">
-                        <button class="icon-button edit-button" onclick="editTask(${task.id}, '${date}', '${encodeURIComponent(task.description)}')" title="Edit task">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="icon-button delete-button" onclick="deleteTask(${task.id}, '${date}')" title="Delete task">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-        }
-    }
-}
-
-function updateTaskIndicators() {
-    const days = document.querySelectorAll('.calendar-day:not(.empty)');
-    days.forEach((day) => {
-        const date = day.dataset.date;
-        if (date) {
-            const tasks = taskManager.getTasksForDate(date);
-            const indicators = day.querySelector('.task-indicators');
-            if (indicators) {
-                indicators.innerHTML = tasks.map(() => '<div class="task-indicator"></div>').join('');
-            }
-            if (date === calendar.selectedDate) updateTaskList(date);
-        }
-    });
-}
-
-window.editTask = (taskId, date, encodedDescription) => {
-    const description = decodeURIComponent(encodedDescription);
-    const newDescription = prompt('Edit task:', description);
-    if (newDescription !== null && newDescription.trim() !== '') {
-        taskManager.updateTask(date, taskId, newDescription.trim());
-        updateTaskList(date);
-        updateTaskIndicators();
-    }
-};
-
-window.deleteTask = (taskId, date) => {
-    if (confirm('Are you sure you want to delete this task?')) {
-        taskManager.deleteTask(date, taskId);
-        updateTaskList(date);
-        updateTaskIndicators();
-    }
-};
-
 document.getElementById('task-date').value = formatDate(new Date());
 updateTaskIndicators();
