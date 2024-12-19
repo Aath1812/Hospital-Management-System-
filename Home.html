@@ -14,13 +14,6 @@
     <a href="Report.html">Report</a>
     <a href="pharmacy.html">Pharmacy</a>
     <a href="login.html" class="button" onclick="return logout()">Logout</a>
-<script>
-    function logout() {
-        alert("Logout successful");
-        return true;
-        window.location.href = "login.html";
-    }
-</script>
   </div>
   <div class="content">
     <div class="top-cards">
@@ -47,41 +40,47 @@
     </div>
     <div class="content">
       <h2>Upcoming Appointments</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Date</th>
-          <th>Doctor Name</th>
-          <th>Contact No:</th>
-          <th>Consultancy Charge</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody id="appointment-table-body">
-         </tbody>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Doctor Name</th>
+            <th>Contact No:</th>
+            <th>Consultancy Charge</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="appointment-table-body"></tbody>
       </table>
     </div>
-    <script>
-      const tableBody = document.getElementById('appointment-table-body');
-      const appointments = JSON.parse(localStorage.getItem('appointments')) || [];
-  
-      if (appointments.length > 0) {
-        appointments.forEach((appointment, index) => {
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td>${index + 1}</td>
-            <td>${appointment.date}</td>
-            <td>${appointment.doctorName}</td>
-            <td>${appointment.contact}</td>
-            <td>${appointment.consultancyCharge}</td>
-            <td>${appointment.status}</td>
-          `;
-          tableBody.appendChild(row);
-        });
-      } else {
-        tableBody.innerHTML = `<tr><td colspan="5">No upcoming appointments.</td></tr>`;
-      }
-    </script>
+  </div>
+  <script>
+    function logout() {
+        alert("Logout successful");
+        window.location.href = "login.html";
+        return true;
+    }
+
+    const tableBody = document.getElementById('appointment-table-body');
+    const appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+
+    if (appointments.length > 0) {
+      appointments.forEach((appointment, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${appointment.date}</td>
+          <td>${appointment.doctorName}</td>
+          <td>${appointment.contact}</td>
+          <td>${appointment.consultancyCharge}</td>
+          <td>${appointment.status}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    } else {
+      tableBody.innerHTML = `<tr><td colspan="6">No upcoming appointments.</td></tr>`;
+    }
+  </script>
 </body>
 </html>
