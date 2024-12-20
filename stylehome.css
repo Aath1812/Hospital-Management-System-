@@ -1,8 +1,9 @@
+/* General Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', Arial, sans-serif;
 }
 
 body {
@@ -140,7 +141,6 @@ tr:last-child td {
   background-color: #dc3545;
 }
 
-
 @media (max-width: 768px) {
   body{
       flex-direction: column;
@@ -201,4 +201,41 @@ tr:last-child td {
   .appointment span {
       font-size: 14px;
   }
+}  
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap'); 
+
+html {
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
+/* Styles for screens wider than 768px */
+@media (min-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+}
+
+/* Styles for screens narrower than 768px */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.item {
+  flex: 1 1 300px; /* Flexible layout */
+  margin: 10px;
 }
