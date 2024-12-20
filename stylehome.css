@@ -1,16 +1,14 @@
-/* General Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Roboto', Arial, sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 body {
   display: flex;
   height: 100vh;
   background-color: #f5f5f5;
-  flex-direction: column; 
   margin: 0;
 }
 
@@ -23,8 +21,8 @@ body {
   flex-direction: column;
   gap: 15px;
   transition: width 0.3s ease;
-  position: fixed;
-  height: 100%;
+  position: fixed; /* Fix the sidebar */
+  height: 100%; /* Full height */
 }
 
 .sidebar a {
@@ -42,13 +40,7 @@ body {
 
 .main-content {
   flex: 1;
-  margin-left: 250px;
-  padding: 20px;
-}
-
-.content {
-  margin-left: 0px;
-  flex: 1;
+  margin-left: 250px; /* Space for sidebar */
   padding: 20px;
   overflow-y: auto;
 }
@@ -142,100 +134,65 @@ tr:last-child td {
 }
 
 @media (max-width: 768px) {
-  body{
-      flex-direction: column;
+  body {
+    flex-direction: column; 
   }
+
   .sidebar {
-      width: 100%;
-      padding: 10px;
-      text-align: center;
-      position: static;
-      height: auto;
+    width: 100%;
+    position: static; 
+    height: auto; 
+    padding: 10px;
+    text-align: center;
+  }
+
+  .main-content {
+    margin-left: 0; 
+    padding-top: 10px; 
   }
 
   .sidebar a {
-      font-size: 16px;
-      padding: 8px;
+    font-size: 16px;
+    padding: 8px;
   }
 
-  .main-content { margin-left: 0;
-                  padding-top: 10px;
-}
-
   .top-cards {
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
+    grid-template-columns: 1fr 1fr; 
+    gap: 10px;
   }
 
   .card {
-      padding: 10px;
+    padding: 10px;
   }
 
   .appointment {
-      flex-direction: column;
-      align-items: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .appointment span {
-      margin-bottom: 10px;
+    margin-bottom: 10px;
   }
 }
 
 @media (max-width: 480px) {
   .top-cards {
-      grid-template-columns: 1fr;
+    grid-template-columns: 1fr; 
   }
 
   .card {
-      padding: 8px;
+    padding: 8px;
   }
 
   th, td {
-      padding: 5px;
+    padding: 5px;
   }
 
   .appointment {
-      padding: 10px;
+    padding: 10px;
   }
 
   .appointment span {
-      font-size: 14px;
-  }
-}  
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap'); 
-
-html {
-  font-size: 16px;
-}
-
-@media (max-width: 768px) {
-  html {
     font-size: 14px;
   }
-}
-/* Styles for screens wider than 768px */
-@media (min-width: 768px) {
-  .container {
-    padding: 20px;
-  }
-}
-
-/* Styles for screens narrower than 768px */
-@media (max-width: 768px) {
-  .container {
-    padding: 10px;
-  }
-}
-img {
-  max-width: 100%;
-  height: auto;
-}
-.container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.item {
-  flex: 1 1 300px; /* Flexible layout */
-  margin: 10px;
 }
