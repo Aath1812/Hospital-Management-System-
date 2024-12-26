@@ -1,16 +1,6 @@
-
-function setupCounter(element) {
-    let counter = 0;
-    const setCounter = (count) => {
-        counter = count;
-        element.innerHTML = `count is ${counter}`;
-    };
-    element.addEventListener('click', () => setCounter(counter + 1));
-    setCounter(0);
-}
-
 function formatDate(date) {
-    return date.toISOString().split('T')[0];
+    const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+    return localDate.toISOString().split('T')[0];  
 }
 
 function getDaysInMonth(year, month) {
@@ -29,29 +19,22 @@ function getFirstDayOfMonth(year, month) {
     return new Date(year, month, 1).getDay();
 }
 
-
-class TaskManager {
+class AppointmentManager {
     constructor() {
-        this.tasks = JSON.parse(localStorage.getItem('tasks')) || {};
+        this.appointments = JSON.parse(localStorage.getItem('appointments')) || {};
     }
 
-    addTask(date, description) {
-        if (!this.tasks[date]) this.tasks[date] = [];
-        this.tasks[date].push({ id: Date.now(), description, completed: false });
+    addAppointment(date, description) {
+        if (!this.appointments[date]) this.appointments[date] = [];
+        this.appointments[date].push({ id: Date.now(), description, completed: false });
         this.save();
     }
 
-    getTasksForDate(date) {
-        return this.tasks[date] || [];
-    }
-
-
     save() {
-        localStorage.setItem('tasks', JSON.stringify(this.tasks));
+        localStorage.setItem('appointments', JSON.stringify(this.appointments));
         alert("Your appointment has been booked");
     }
 }
-
 
 class Calendar {
     constructor(date = new Date()) {
@@ -68,40 +51,34 @@ class Calendar {
         const month = this.currentDate.getMonth();
         const daysInMonth = getDaysInMonth(year, month);
         const firstDay = getFirstDayOfMonth(year, month);
+        const today = new Date();
 
         let calendarHTML = this.generateWeekdaysHTML();
 
         for (let i = 0; i < firstDay; i++) {
-            calendarHTML += '<div class="calendar-day empty">-</div>';
+            calendarHTML += '<div class="calendar-day empty"></div>';
         }
 
         for (let day = 1; day <= daysInMonth; day++) {
-            const date = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-            const isSelected = date === this.selectedDate ? 'selected' : '';
+            const date = new Date(year, month, day);
+            const formattedDate = formatDate(date);
+            const isPastDate = date < today.setHours(0, 0, 0, 0);
+            const isSelected = formattedDate === this.selectedDate ? 'selected' : '';
+            const disabledClass = isPastDate ? 'disabled' : '';
 
             calendarHTML += `
-                <div class="calendar-day ${isSelected}" data-date="${date}">
+                <div class="calendar-day ${isSelected} ${disabledClass}" data-date="${formattedDate}">
                     ${day}
-                    <div class="task-list"></div>
-                    <div class="task-indicators"></div>
                 </div>
             `;
         }
 
         const totalCells = Math.ceil((firstDay + daysInMonth) / 7) * 7;
         for (let i = firstDay + daysInMonth; i < totalCells; i++) {
-            calendarHTML += '<div class="calendar-day empty">-</div>';
+            calendarHTML += '<div class="calendar-day empty"></div>';
         }
 
         return calendarHTML;
-    }
-
-    isCurrentMonth() {
-        const today = new Date();
-        return (
-            this.currentDate.getFullYear() === today.getFullYear() &&
-            this.currentDate.getMonth() === today.getMonth()
-        );
     }
 
     nextMonth() {
@@ -121,11 +98,15 @@ class Calendar {
         const calendarGrid = document.querySelector('.calendar-grid');
         calendarGrid.innerHTML = this.generateCalendarHTML();
 
+        const today = new Date();
         const prevButton = document.querySelector('.prev-month');
-        if (this.isCurrentMonth()) {
-            prevButton.disabled = true; // Disable the button if it's the current month
+        if (
+            this.currentDate.getFullYear() === today.getFullYear() &&
+            this.currentDate.getMonth() === today.getMonth()
+        ) {
+            prevButton.disabled = true; 
         } else {
-            prevButton.disabled = false; // Enable the button otherwise
+            prevButton.disabled = false; 
         }
     }
 
@@ -135,40 +116,29 @@ class Calendar {
     }
 }
 
-
 const calendar = new Calendar();
-const taskManager = new TaskManager();
+const appointmentManager = new AppointmentManager();
 
 calendar.updateCalendar();
-document.querySelector('.prev-month').addEventListener('click', () => {
-    calendar.previousMonth();
-    updateTaskIndicators();
-});
 
-document.querySelector('.next-month').addEventListener('click', () => {
-    calendar.nextMonth();
-    updateTaskIndicators();
-});
+document.querySelector('.prev-month').addEventListener('click', () => calendar.previousMonth());
+document.querySelector('.next-month').addEventListener('click', () => calendar.nextMonth());
 
 document.querySelector('.calendar-grid').addEventListener('click', (e) => {
     const dayElement = e.target.closest('.calendar-day');
-    if (dayElement && !dayElement.classList.contains('empty')) {
+    if (dayElement && !dayElement.classList.contains('empty') && !dayElement.classList.contains('disabled')) {
         const date = dayElement.dataset.date;
         calendar.setSelectedDate(date);
-        document.getElementById('task-date').value = date;
-        updateTaskList(date);
+        document.getElementById('appointment-date').value = date; 
     }
 });
 
 document.querySelector('.save-button').addEventListener('click', () => {
-    const dateInput = document.getElementById('task-date');
-    const descriptionInput = document.getElementById('task-description');
+    const dateInput = document.getElementById('appointment-date');
+    const descriptionInput = document.getElementById('appointment-description');
     if (dateInput.value && descriptionInput.value) {
-        taskManager.addTask(dateInput.value, descriptionInput.value);
-        updateTaskIndicators();
-        updateTaskList(dateInput.value);
+        appointmentManager.addAppointment(dateInput.value, descriptionInput.value);
         descriptionInput.value = '';
     }
 });
-document.getElementById('task-date').value = formatDate(new Date());
-updateTaskIndicators();
+document.getElementById('appointment-date').value = formatDate(new Date());
