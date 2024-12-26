@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Scheduler</title>
+    <title>Appointment Scheduler</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="calendar.css">
 </head>
@@ -33,11 +33,11 @@
             <div class="calendar-grid"></div>
         </div>
 
-        <div class="task-form">
+        <div class="appointment-form">
             <h3>Book Appointment</h3>
             <div class="form-group">
-                <label for="task-date">Date:</label>
-                <input type="date" id="task-date" required>
+                <label for="appointment-date">Date:</label>
+                <input type="date" id="appointment-date" required>
             </div>
             <div class="form-group">
                 <label for="doctor-name">Doctor Name:</label>
@@ -67,15 +67,15 @@
         const saveButton = document.querySelector('.save-button');
     
         saveButton.addEventListener('click', () => {
-            const taskDate = document.getElementById('task-date').value;
+            const appointmentDate = document.getElementById('appointment-date').value;
             const doctorName = document.getElementById('doctor-name').value;
             const contact = document.getElementById('contact').value;
             const consultancyCharge = document.getElementById('consultancy-charge').value;
             const status = document.getElementById('status').value;
-            if (taskDate && doctorName && contact && consultancyCharge && status) {
+            if (appointmentDate && doctorName && contact && consultancyCharge && status) {
                 const appointments = JSON.parse(localStorage.getItem('appointments')) || [];
                 appointments.push({
-                    date: taskDate,
+                    date: appointmentDate,
                     doctorName: doctorName,
                     contact: contact,
                     consultancyCharge: consultancyCharge,
