@@ -89,9 +89,7 @@ button:hover {
     background-color: rgb(20, 183, 20);
 }
 
-/* --- Responsive Styles --- */
 
-/* For tablets and smaller screens (width <= 768px) */
 @media (max-width: 768px) {
     header {
         padding: 20px;
@@ -106,7 +104,7 @@ button:hover {
     }
 
     .doctor-card {
-        width: calc(50% - 1rem); /* Adjust to 2 cards per row */
+        width: calc(50% - 1rem); 
     }
 
     .doctor-card img {
@@ -120,7 +118,6 @@ button:hover {
     }
 }
 
-/* For mobile screens (width <= 480px) */
 @media (max-width: 480px) {
     header {
         padding: 15px;
@@ -139,7 +136,7 @@ button:hover {
     }
 
     .doctor-card {
-        width: 100%; /* Full width for single-column layout */
+        width: 100%; 
     }
 
     .doctor-card img {
@@ -169,14 +166,13 @@ button:hover {
       font-size: 14px;
     }
   }
-  /* Styles for screens wider than 768px */
+  
   @media (min-width: 768px) {
     .container {
       padding: 20px;
     }
   }
-  
-  /* Styles for screens narrower than 768px */
+
   @media (max-width: 768px) {
     .container {
       padding: 10px;
@@ -192,6 +188,6 @@ button:hover {
   }
   
   .item {
-    flex: 1 1 300px; /* Flexible layout */
+    flex: 1 1 300px;
     margin: 10px;
   }
